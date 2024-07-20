@@ -18,7 +18,9 @@ class HomePage extends StatelessWidget {
             IconButton(
               onPressed: () {
                 showModalBottomSheet(
-                    context: context, builder: (context) => const AddModal());
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => const AddModal());
               },
               icon: const Icon(Icons.checklist_sharp),
             )

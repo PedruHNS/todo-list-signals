@@ -24,29 +24,42 @@ class _AddModalState extends State<AddModal> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<TodoControllers>(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Text('Adicionar tarefa'),
-          TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Título')),
-          TextFormField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Descrição')),
-          ElevatedButton(
-            onPressed: () {
-              TodoModel todo = TodoModel(
-                  title: _titleController.text,
-                  description: _descriptionController.text);
-              controller.addTodo(todo);
-              Navigator.of(context).pop();
-            },
-            child: const Text('Adicionar'),
-          )
-        ],
+    final height = MediaQuery.of(context).size.height;
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Container(
+          height: height * 0.3,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Adicionar tarefa'),
+              TextFormField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: 'Título')),
+              const SizedBox(height: 8),
+              TextFormField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Descrição')),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 48)),
+                onPressed: () {
+                  TodoModel todo = TodoModel(
+                      title: _titleController.text,
+                      description: _descriptionController.text);
+                  controller.addTodo(todo);
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Adicionar'),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
